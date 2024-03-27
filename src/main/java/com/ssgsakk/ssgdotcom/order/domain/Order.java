@@ -1,8 +1,6 @@
 package com.ssgsakk.ssgdotcom.order.domain;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -10,84 +8,65 @@ import lombok.ToString;
 import java.security.Timestamp;
 
 @ToString
-@Getter
 @Entity
+@Getter
 @NoArgsConstructor
 public class Order {
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderSeq;
 
-    @Column(nullable = false)
-    private Long ordererId;
-
-
-    @Column(nullable = false)
-    private Timestamp orderAt;
-
-
-    @Column(nullable = false)
+    @Column(length = 10)
     private String orderer; //주문자이름
 
-
-    @Column(nullable = false)
+    @Column(length = 15)
     private String ordererPhoneNum; //주문자 전화번호
 
-
-    @Column(nullable = false)
+    @Column(length = 20)
     private String ordererEmail; //주문자 이메일
 
-
-    @Column(nullable = false)
+    @Column(length = 10)
     private String recipient; //수령자 이름
 
-
-    @Column(nullable = false)
+    @Column(length = 15)
     private String recipientPhoneNum; //수령자 전화번호
 
-
-    @Column(nullable = false)
+    @Column(length = 20)
     private String recipientEmail; //수령자 이메일
+    @Column(length = 7)
+    private String finalAddress; //최종배송지우편번호
 
-
-    @Column(nullable = false)
-    private String finalAsdress; //최종배송지우편번호
-
-
-    @Column(nullable = false)
+    @Column(length = 30)
     private String finalRoadAddress; //최종배송지 도로명주소
 
-
-    @Column(nullable = false)
+    @Column(length = 20)
     private String finalJibunAddress; //최종배송지지번주소
 
-
-    @Column(nullable = false)
+    @Column(length = 10)
     private String finalDetailAddress; //최종배송지상세주소
 
-    @Column(nullable = false)
+    @Column(length = 100)
     private String deliverymessage; //배송메시지
 
-    public Order(Long orderSeq, Long ordererId, Timestamp orderAt, String orderer,
-                 String ordererPhoneNum, String ordererEmail, String recipient,
-                 String recipientPhoneNum, String recipientEmail, String finalAsdress,
-                 String finalRoadAddress, String finalJibunAddress, String finalDetailAddress,
-                 String deliverymessage) {
+    @Builder
+
+    public Order(Long orderSeq, String orderer,
+                 String ordererPhoneNum, String ordererEmail,
+                 String recipient, String recipientPhoneNum, String recipientEmail,
+                 String finalAddress, String finalRoadAddress, String finalJibunAddress,
+                 String finalDetailAddress, String deliverymessage) {
 
         this.orderSeq = orderSeq;
-        this.ordererId = ordererId;
-        this.orderAt = orderAt;
         this.orderer = orderer;
         this.ordererPhoneNum = ordererPhoneNum;
         this.ordererEmail = ordererEmail;
         this.recipient = recipient;
         this.recipientPhoneNum = recipientPhoneNum;
         this.recipientEmail = recipientEmail;
-        this.finalAsdress = finalAsdress;
+        this.finalAddress = finalAddress;
         this.finalRoadAddress = finalRoadAddress;
         this.finalJibunAddress = finalJibunAddress;
         this.finalDetailAddress = finalDetailAddress;
         this.deliverymessage = deliverymessage;
-
     }
 }
